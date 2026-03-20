@@ -1,93 +1,693 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Sameera Chinta Portfolio</title>
-  <link rel="stylesheet" href="style.css">
-</head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Sameera Chinta – Software Engineering Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+  :root {
+    --bg:          #2e3648;
+    --bg-deeper:   #252b3b;
+    --surface:     #f5f6f8;
+    --surface-alt: #eceef2;
+    --card-border: #dde0e8;
+    --text-on-dark: #e8ecf5;
+    --muted-on-dark: #9aa3bc;
+    --text:        #1c2033;
+    --muted:       #5c6480;
+    --accent:      #4f8ef7;
+    --accent-dark: #2d6be4;
+    --accent-light:#e8f0fe;
+    --accent-mid:  #b8cffb;
+    --gold:        #f0c274;
+    --divider:     rgba(255,255,255,0.08);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text-on-dark);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 400;
+    line-height: 1.7;
+    overflow-x: hidden;
+    font-size: 15px;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.1rem 3rem;
+    background: var(--bg-deeper);
+    border-bottom: 1px solid var(--divider);
+  }
+  .nav-logo {
+    font-family: 'Lora', serif;
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: var(--text-on-dark);
+    text-decoration: none;
+    letter-spacing: -0.01em;
+  }
+  .nav-logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--muted-on-dark);
+    text-decoration: none;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 9rem 3rem 6rem;
+    max-width: 1100px; margin: 0 auto;
+    border-bottom: 1px solid var(--divider);
+  }
+  .hero-eyebrow {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--gold);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 1.8rem;
+    display: flex; align-items: center; gap: 0.8rem;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 30px; height: 2px;
+    background: var(--gold);
+    border-radius: 2px;
+  }
+  .hero h1 {
+    font-family: 'Lora', serif;
+    font-weight: 600;
+    font-size: clamp(2.8rem, 7vw, 5.8rem);
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.5rem;
+    color: var(--text-on-dark);
+  }
+  .name-accent { color: var(--accent); font-style: italic; }
+  .hero-subtitle {
+    font-size: 1.05rem;
+    color: var(--muted-on-dark);
+    max-width: 560px;
+    margin-bottom: 2.5rem;
+    font-weight: 400;
+    line-height: 1.8;
+  }
+  .hero-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 3rem; }
+  .tag {
+    font-size: 0.71rem;
+    font-weight: 500;
+    padding: 0.32rem 0.85rem;
+    border-radius: 100px;
+    background: rgba(255,255,255,0.07);
+    color: var(--muted-on-dark);
+    border: 1px solid rgba(255,255,255,0.1);
+    letter-spacing: 0.02em;
+  }
+  .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn {
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    padding: 0.8rem 1.7rem;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: all 0.2s;
+    display: inline-flex; align-items: center; gap: 0.4rem;
+  }
+  .btn-primary { background: var(--accent); color: #fff; border: 2px solid var(--accent); }
+  .btn-primary:hover { background: var(--accent-dark); border-color: var(--accent-dark); }
+  .btn-outline { background: transparent; color: var(--text-on-dark); border: 2px solid rgba(255,255,255,0.18); }
+  .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* ── CONTENT WRAPPER (light sections) ── */
+  .light-sections {
+    background: var(--surface);
+  }
+
+  /* ── SECTIONS ── */
+  .section {
+    max-width: 1100px; margin: 0 auto;
+    padding: 5.5rem 3rem;
+    border-bottom: 1px solid var(--card-border);
+  }
+  .section-label {
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: var(--accent-dark);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    display: flex; align-items: center; gap: 0.75rem;
+    margin-bottom: 0.6rem;
+  }
+  .section-label::after { content: ''; flex: 1; height: 1.5px; background: var(--card-border); }
+  .section-title {
+    font-family: 'Lora', serif;
+    font-weight: 600;
+    font-size: clamp(1.7rem, 3.5vw, 2.6rem);
+    letter-spacing: -0.025em;
+    margin-bottom: 3rem;
+    color: var(--text);
+    line-height: 1.2;
+  }
+
+  /* ── ABOUT ── */
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+  .about-text p { color: var(--muted); margin-bottom: 1.1rem; font-size: 0.94rem; line-height: 1.85; }
+  .about-text p strong { color: var(--text); font-weight: 600; }
+  .skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+  .skill-card {
+    background: #fff;
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    padding: 1.1rem 1.2rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    border-left: 3px solid var(--accent);
+  }
+  .skill-card:hover {
+    box-shadow: 0 4px 16px rgba(79,142,247,0.1);
+  }
+  .skill-card-label {
+    font-size: 0.62rem;
+    font-weight: 700;
+    color: var(--accent-dark);
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    margin-bottom: 0.45rem;
+  }
+  .skill-card p { font-size: 0.8rem; color: var(--muted); line-height: 1.65; }
+
+  /* ── PROJECTS ── */
+  .projects-list { display: flex; flex-direction: column; gap: 1.5rem; }
+
+  .project-card {
+    background: #fff;
+    border: 1px solid var(--card-border);
+    border-radius: 10px;
+    padding: 2rem 2.2rem;
+    transition: box-shadow 0.2s, transform 0.2s;
+    border-top: 3px solid var(--accent);
+  }
+  .project-card:hover {
+    box-shadow: 0 8px 30px rgba(79,142,247,0.12);
+    transform: translateY(-2px);
+  }
+
+  .project-top {
+    display: grid;
+    grid-template-columns: 3.5rem 1fr auto;
+    gap: 0 1.5rem;
+    align-items: start;
+  }
+  .project-number {
+    font-family: 'Lora', serif;
+    font-weight: 400;
+    font-size: 2rem;
+    color: var(--accent-mid);
+    line-height: 1;
+    padding-top: 0.15rem;
+    font-style: italic;
+  }
+  .project-body { min-width: 0; }
+  .project-title {
+    font-family: 'Lora', serif;
+    font-weight: 600;
+    font-size: 1.15rem;
+    letter-spacing: -0.015em;
+    margin-bottom: 0.65rem;
+    color: var(--text);
+    line-height: 1.3;
+  }
+  .project-stack { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .stack-tag {
+    font-size: 0.67rem;
+    font-weight: 600;
+    padding: 0.22rem 0.65rem;
+    border-radius: 4px;
+    background: var(--accent-light);
+    color: var(--accent-dark);
+    letter-spacing: 0.02em;
+    border: 1px solid var(--accent-mid);
+  }
+  .project-links { display: flex; flex-direction: column; gap: 0.4rem; align-items: flex-end; }
+  .project-link {
+    font-size: 0.73rem;
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--accent-dark);
+    border: 1.5px solid var(--accent-mid);
+    background: var(--accent-light);
+    padding: 0.42rem 1rem;
+    border-radius: 5px;
+    letter-spacing: 0.02em;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .project-link:hover {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+  }
+
+  /* ── PROJECT DETAILS ── */
+  .project-details {
+    margin-top: 1.6rem;
+    padding-top: 1.6rem;
+    border-top: 1px solid var(--surface-alt);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.6rem 3rem;
+  }
+  .detail-block-label {
+    font-size: 0.62rem;
+    font-weight: 700;
+    color: var(--accent-dark);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.55rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1.5px solid var(--surface-alt);
+  }
+  .detail-block p {
+    font-size: 0.87rem;
+    color: var(--muted);
+    line-height: 1.82;
+  }
+  .detail-block ul { list-style: none; display: flex; flex-direction: column; gap: 0.32rem; }
+  .detail-block ul li {
+    font-size: 0.87rem;
+    color: var(--muted);
+    line-height: 1.65;
+    padding-left: 1.1rem;
+    position: relative;
+  }
+  .detail-block ul li::before {
+    content: '▸';
+    position: absolute; left: 0;
+    color: var(--accent);
+    font-size: 0.6rem;
+    top: 0.28rem;
+  }
+  .detail-full { grid-column: 1 / -1; }
+
+  /* ── CONTACT ── */
+  .contact-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+  .contact-item {
+    background: #fff;
+    border: 1px solid var(--card-border);
+    border-radius: 8px;
+    padding: 1.4rem 1.6rem;
+    display: flex; align-items: center; gap: 1rem;
+    text-decoration: none;
+    transition: all 0.2s;
+    border-bottom: 3px solid var(--accent-mid);
+  }
+  .contact-item:hover {
+    border-bottom-color: var(--accent);
+    box-shadow: 0 4px 16px rgba(79,142,247,0.12);
+    transform: translateY(-2px);
+  }
+  .contact-icon {
+    width: 40px; height: 40px;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--accent-light);
+    border-radius: 8px;
+    font-size: 1rem;
+    flex-shrink: 0;
+    border: 1px solid var(--accent-mid);
+  }
+  .contact-label {
+    font-size: 0.62rem;
+    font-weight: 700;
+    color: var(--accent-dark);
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    margin-bottom: 0.2rem;
+  }
+  .contact-value { font-size: 0.82rem; color: var(--text); font-weight: 400; }
+
+  /* ── FOOTER ── */
+  .footer-wrap { background: var(--bg-deeper); }
+  footer {
+    max-width: 1100px; margin: 0 auto;
+    padding: 1.8rem 3rem;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  footer p { font-size: 0.75rem; color: var(--muted-on-dark); letter-spacing: 0.02em; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero { padding: 7rem 1.5rem 4rem; }
+    .section { padding: 3.5rem 1.5rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .skills-grid { grid-template-columns: 1fr 1fr; }
+    .project-top { grid-template-columns: 1fr; gap: 0.75rem; }
+    .project-number { font-size: 1.2rem; }
+    .project-links { flex-direction: row; }
+    .project-details { grid-template-columns: 1fr; }
+    .detail-full { grid-column: 1; }
+    .contact-grid { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 0.4rem; text-align: center; }
+  }
+</style>
+</head>
 <body>
 
-<header>
-  <h1>Sameera Chinta</h1>
-  <p>Software Developer | Full Stack Engineer</p>
-</header>
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#"><span>SC.</span> Sameera Chinta</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
 
-<section class="about">
-  <h2>About Me</h2>
-  <p>
-    Software developer with experience in Java, Spring Boot, React, and full-stack applications.
-    Passionate about building scalable systems and modern web applications.
-  </p>
-</section>
-
-<section class="projects">
-
-  <h2>Projects</h2>
-
-  <div class="grid">
-
-    <div class="card">
-      <h3>Inventory App</h3>
-      <p>Full-stack inventory management system with CRUD, authentication, and filtering.</p>
-      <div class="links">
-        <a href="https://github.com/katara-org/inventory-app">GitHub</a>
-        <a href="https://inventory-app-ts3j.onrender.com/">Live</a>
-      </div>
-    </div>
-
-    <div class="card">
-      <h3>Sankey Dashboard</h3>
-      <p>Data visualization dashboard using Sankey diagrams and Excel uploads.</p>
-      <div class="links">
-        <a href="https://github.com/sameera13/sankey-app">GitHub</a>
-      </div>
-    </div>
-
-    <div class="card">
-      <h3>Horizon API</h3>
-      <p>Spring Boot backend with authentication and role-based access.</p>
-      <div class="links">
-        <a href="https://github.com/Horizon-MV/Horizon-App">GitHub</a>
-      </div>
-    </div>
-
-    <div class="card">
-      <h3>Perks Calculator</h3>
-      <p>Full-stack app with CI/CD, Docker, and cloud deployment.</p>
-      <div class="links">
-        <a href="https://github.com/Perks-cal/verizon-perks-savings-cal">GitHub</a>
-      </div>
-    </div>
-
-    <div class="card">
-      <h3>FitLog</h3>
-      <p>React wellness tracker with routing, dashboards, and CRUD features.</p>
-      <div class="links">
-        <a href="https://github.com/Wellness-Tracker/FitLog">GitHub</a>
-        <a href="https://fitlogg-qssq.onrender.com/">Live</a>
-      </div>
-    </div>
-
+<!-- HERO (dark) -->
+<section class="hero">
+  <p class="hero-eyebrow">Software Engineering Apprenticeship · Multiverse @ Verizon</p>
+  <h1>Hi, I'm<br><span class="name-accent">Sameera</span><br>Chinta.</h1>
+  <p class="hero-subtitle">Full-stack software developer building end-to-end applications with Java, Spring Boot, React, and cloud tooling — with a love for clean APIs and intuitive interfaces.</p>
+  <div class="hero-tags">
+    <span class="tag">Java</span>
+    <span class="tag">Spring Boot</span>
+    <span class="tag">React</span>
+    <span class="tag">Node.js</span>
+    <span class="tag">SQL</span>
+    <span class="tag">Docker</span>
+    <span class="tag">REST APIs</span>
+    <span class="tag">CI/CD</span>
   </div>
-
+  <div class="hero-cta">
+    <a href="#projects" class="btn btn-primary">View Projects ↓</a>
+    <a href="mailto:chintasameera01@gmail.com" class="btn btn-outline">Get in Touch</a>
+  </div>
 </section>
 
-<section class="skills">
-  <h2>Skills</h2>
-  <p>Java • Spring Boot • React • Node.js • SQL • Docker • AWS • Git</p>
-</section>
+<!-- LIGHT SECTIONS -->
+<div class="light-sections">
 
-<section class="contact">
-  <h2>Contact</h2>
-  <p>Email: chintasameera01@gmail.com</p>
-  <p>Phone: +1 (945) 257-6234</p>
-  <p><a href="https://github.com/sameera13">GitHub</a></p>
-</section>
+  <!-- ABOUT -->
+  <section class="section" id="about">
+    <p class="section-label">About</p>
+    <h2 class="section-title">Who I Am</h2>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>I'm a software developer who completed a <strong>one-year Apprenticeship at Verizon</strong>, where I built production-quality full-stack applications and collaborated with cross-functional teams across the full SDLC.</p>
+        <p>I enjoy the intersection of clean backend design and polished frontend experiences — from architecting secure REST APIs to crafting interactive data visualizations. My goal is to become a well-rounded <strong>Full Stack Software Engineer</strong> who builds software that genuinely matters.</p>
+        <p>I thrive in collaborative environments, pick up new technologies quickly, and care deeply about writing maintainable, scalable code.</p>
+      </div>
+      <div class="skills-grid">
+        <div class="skill-card"><div class="skill-card-label">Languages</div><p>Java · JavaScript · Python · SQL</p></div>
+        <div class="skill-card"><div class="skill-card-label">Frontend</div><p>React · Vite · HTML · CSS · Tailwind · Bootstrap</p></div>
+        <div class="skill-card"><div class="skill-card-label">Backend</div><p>Spring Boot · Node.js · Express.js · REST APIs · JPA/Hibernate</p></div>
+        <div class="skill-card"><div class="skill-card-label">DevOps & Tools</div><p>Git · Docker · GitHub Actions · Jenkins · AWS · Postman</p></div>
+      </div>
+    </div>
+  </section>
 
-<footer>
-  <p>© 2026 Sameera Chinta</p>
-</footer>
+  <!-- PROJECTS -->
+  <section class="section" id="projects">
+    <p class="section-label">Work</p>
+    <h2 class="section-title">Projects</h2>
+    <div class="projects-list">
+
+      <!-- 01 -->
+      <div class="project-card">
+        <div class="project-top">
+          <div class="project-number">01</div>
+          <div class="project-body">
+            <h3 class="project-title">Inventory App</h3>
+            <div class="project-stack">
+              <span class="stack-tag">React</span><span class="stack-tag">Node.js</span>
+              <span class="stack-tag">Express.js</span><span class="stack-tag">SQLite</span>
+              <span class="stack-tag">Sequelize</span><span class="stack-tag">React Router</span>
+            </div>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/katara-org/inventory-app" target="_blank" class="project-link">↗ GitHub</a>
+          </div>
+        </div>
+        <div class="project-details">
+          <div class="detail-block">
+            <div class="detail-block-label">Purpose / Goal</div>
+            <p>To build a user-friendly web interface for browsing and managing inventory items with full CRUD capabilities, user authentication, and server-side validation — simulating a real-world e-commerce product management system.</p>
+          </div>
+          <div class="detail-block">
+            <div class="detail-block-label">Features</div>
+            <ul>
+              <li>Browse and search items by name, price, description, and category</li>
+              <li>Add, edit, and delete inventory items</li>
+              <li>Filter by category or price range</li>
+              <li>Add to cart and place orders</li>
+              <li>User authentication and server-side validation</li>
+            </ul>
+          </div>
+          <div class="detail-block">
+            <div class="detail-block-label">Skills Demonstrated</div>
+            <p>Full-stack development with React, Node.js, Express.js, Sequelize, SQLite, and REST APIs. Demonstrates end-to-end integration — designing a React frontend, building Express API endpoints, and connecting to a Sequelize-managed SQLite database with CRUD and authentication woven throughout.</p>
+          </div>
+          <div class="detail-block">
+            <div class="detail-block-label">Personal Contribution</div>
+            <p>Contributed to CRUD functionality, implemented backend API endpoints including GET routes, and developed frontend components to display and manage product data. Worked on frontend-backend integration and API communication patterns.</p>
+          </div>
+          <div class="detail-block detail-full">
+            <div class="detail-block-label">Personal Takeaways</div>
+            <p>This project helped me understand how full-stack systems work end-to-end, including API integration and frontend-backend communication. I improved my ability to structure applications and build scalable features while working within a team environment.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 02 -->
+      <div class="project-card">
+        <div class="project-top">
+          <div class="project-number">02</div>
+          <div class="project-body">
+            <h3 class="project-title">Client Journey Visualization Dashboard</h3>
+            <div class="project-stack">
+              <span class="stack-tag">React</span><span class="stack-tag">Plotly.js</span>
+              <span class="stack-tag">SheetJS</span><span class="stack-tag">Tailwind CSS</span>
+            </div>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/sameera13/sankey-app" target="_blank" class="project-link">↗ GitHub</a>
+          </div>
+        </div>
+        <div class="project-details">
+          <div class="detail-block">
+            <div class="detail-block-label">Purpose / Goal</div>
+            <p>To consolidate client session data into a single visual interface that helps stakeholders identify customer journey patterns and drop-off points — turning raw Excel exports into actionable flow insights through an interactive Sankey diagram.</p>
+          </div>
+          <div class="detail-block">
+            <div class="detail-block-label">Features</div>
+            <ul>
+              <li>Excel file upload and client-side parsing</li>
+              <li>Interactive Sankey diagram with hover details</li>
+              <li>Node-level percentage breakdowns</li>
+              <li>Client filtering and session summary view</li>
+              <li>Fully responsive design</li>
+            </ul>
+          </div>
+          <div class="detail-block">
+            <div class="detail-block-label">Skills Demonstrated</div>
+            <p>React, Plotly.js, SheetJS, and Tailwind CSS. Demonstrates the ability to process raw unstructured data from Excel files, transform it into a structured format, and render it as a meaningful interactive visualization — all within a single client-side React application built independently.</p>
+          </div>
+          <div class="detail-block">
+            <div class="detail-block-label">Personal Contribution</div>
+            <p>As the sole contributor, independently designed and built the entire application — from Excel parsing logic and data transformation pipelines to the interactive Sankey diagram and responsive UI. All architecture and engineering decisions were mine.</p>
+          </div>
+          <div class="detail-block detail-full">
+            <div class="detail-block-label">Personal Takeaways</div>
+            <p>This project improved my ability to work independently and build complete applications from scratch. I gained strong experience in data visualization and learned how to handle real-world, unstructured datasets in a way that creates genuine value for end users.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 03 -->
+      <div class="project-card">
+        <div class="project-top">
+          <div class="project-number">03</div>
+          <div class="project-body">
+            <h3 class="project-title">Horizon Mobile Plans API</h3>
+            <div class="project-stack">
+              <span class="stack-tag">Java 17</span><span class="stack-tag">Spring Boot</span>
+              <span class="stack-tag">Spring Security</span><span class="stack-tag">OAuth2 / OIDC</span>
+              <span class="stack-tag">JPA/Hibernate</span><span class="stack-tag">H2</span>
+            </div>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/Horizon-MV/Horizon-App" target="_blank" class="project-link">↗ GitHub</a>
+          </div>
+        </div>
+        <div class="project-details">
+          <div class="detail-block">
+            <div class="detail-block-label">Purpose / Goal</div>
+            <p>To build a secure backend system for managing users and mobile plans, inspired by real-world telecom data management. The goal was to showcase enterprise-grade security patterns using Auth0 OIDC, role-based access control, and clean RESTful API design.</p>
+          </div>
+          <div class="detail-block">
+            <div class="detail-block-label">Features</div>
+            <ul>
+              <li>Auth0-powered OIDC authentication</li>
+              <li>Role-based access control (admin vs user)</li>
+              <li>Full CRUD operations for users and mobile plans</li>
+              <li>H2 in-memory database for rapid development</li>
+              <li>RESTful API architecture</li>
+            </ul>
+          </div>
+          <div class="detail-block">
+            <div class="detail-block-label">Skills Demonstrated</div>
+            <p>Java 17, Spring Boot, Spring Security, OAuth2/OIDC, JPA/Hibernate, and H2. Demonstrates the ability to design secure backend systems — integrating Auth0 for identity management, enforcing role-based permissions via Spring Security, and using JPA/Hibernate to cleanly abstract database operations behind service layers.</p>
+          </div>
+          <div class="detail-block">
+            <div class="detail-block-label">Personal Contribution</div>
+            <p>Implemented REST API endpoints and managed database operations using JPA/Hibernate. Contributed to the authentication and authorization layer, ensuring secure access control across different user roles within the system.</p>
+          </div>
+          <div class="detail-block detail-full">
+            <div class="detail-block-label">Personal Takeaways</div>
+            <p>This project significantly enhanced my understanding of backend system design and secure authentication mechanisms. It gave me hands-on experience integrating OAuth2/OIDC into a production-style Spring Boot application and reinforced best practices for building protected, scalable REST APIs.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 04 -->
+      <div class="project-card">
+        <div class="project-top">
+          <div class="project-number">04</div>
+          <div class="project-body">
+            <h3 class="project-title">Verizon Perks Savings Calculator</h3>
+            <div class="project-stack">
+              <span class="stack-tag">React</span><span class="stack-tag">Java</span>
+              <span class="stack-tag">Spring Boot</span><span class="stack-tag">Docker</span>
+              <span class="stack-tag">GitHub Actions</span><span class="stack-tag">Render</span>
+            </div>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/Perks-cal/verizon-perks-savings-cal" target="_blank" class="project-link">↗ GitHub</a>
+          </div>
+        </div>
+        <div class="project-details">
+          <div class="detail-block">
+            <div class="detail-block-label">Purpose / Goal</div>
+            <p>To help Verizon customers understand the real value of their perks by comparing standalone subscription costs against bundled Verizon perk pricing — and clearly showing potential monthly savings in a simple, interactive interface.</p>
+          </div>
+          <div class="detail-block">
+            <div class="detail-block-label">Features</div>
+            <ul>
+              <li>Side-by-side subscription price comparison</li>
+              <li>Monthly savings calculator</li>
+              <li>Full CRUD REST API for perks data</li>
+              <li>Automated CI/CD pipeline via GitHub Actions</li>
+              <li>Docker containerization and Render deployment</li>
+            </ul>
+          </div>
+          <div class="detail-block">
+            <div class="detail-block-label">Skills Demonstrated</div>
+            <p>React, Java, Spring Boot, Spring Data JPA, Docker, GitHub Actions, and Render. Demonstrates full-stack delivery in a production-like environment — building a React frontend, a Spring Boot API backend, and configuring an end-to-end CI/CD pipeline that automates testing and cloud deployment with every code push.</p>
+          </div>
+          <div class="detail-block">
+            <div class="detail-block-label">Personal Contribution</div>
+            <p>Contributed to both the React frontend and Spring Boot backend. Implemented REST API endpoints, built frontend components for the savings calculator, and helped configure CI/CD pipelines to automate testing and deployment workflows.</p>
+          </div>
+          <div class="detail-block detail-full">
+            <div class="detail-block-label">Personal Takeaways</div>
+            <p>This project gave me real hands-on experience deploying full-stack applications with CI/CD and Docker. It deepened my understanding of how technologies integrate in a production environment and reinforced the value of automating workflows for collaborative, team-based development.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 05 -->
+      <div class="project-card">
+        <div class="project-top">
+          <div class="project-number">05</div>
+          <div class="project-body">
+            <h3 class="project-title">FitLog – Wellness &amp; Habit Tracker</h3>
+            <div class="project-stack">
+              <span class="stack-tag">React</span><span class="stack-tag">Vite</span>
+              <span class="stack-tag">React Router</span><span class="stack-tag">React Bootstrap</span>
+            </div>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/Wellness-Tracker/FitLog" target="_blank" class="project-link">↗ GitHub</a>
+          </div>
+        </div>
+        <div class="project-details">
+          <div class="detail-block">
+            <div class="detail-block-label">Purpose / Goal</div>
+            <p>To provide users with a clean, all-in-one wellness dashboard for tracking daily habits, meals, workouts, and personal progress — making it easy to build healthy routines through a smooth, intuitive single-page experience.</p>
+          </div>
+          <div class="detail-block">
+            <div class="detail-block-label">Features</div>
+            <ul>
+              <li>SPA routing across all pages with React Router</li>
+              <li>Full CRUD for meals and workouts</li>
+              <li>Habit tracker with daily check-ins</li>
+              <li>Progress visualization dashboard</li>
+              <li>User settings and responsive design</li>
+            </ul>
+          </div>
+          <div class="detail-block">
+            <div class="detail-block-label">Skills Demonstrated</div>
+            <p>React, Vite, React Router, and React Bootstrap. Demonstrates frontend architecture skills — structuring a multi-page SPA with clean routing, building reusable components, and managing local state across a wellness tracking feature set with a consistent, user-centered design language.</p>
+          </div>
+          <div class="detail-block">
+            <div class="detail-block-label">Personal Contribution</div>
+            <p>Built frontend components, implemented SPA routing across all pages, and developed core tracking features including meal logging, workout entries, and habit monitoring. Focused on creating intuitive, reusable components and a consistent user experience throughout the dashboard.</p>
+          </div>
+          <div class="detail-block detail-full">
+            <div class="detail-block-label">Personal Takeaways</div>
+            <p>This project improved my frontend development skills and taught me how to design user-friendly interfaces with reusable component patterns. It reinforced the importance of thoughtful UX decisions and consistent design language when building consumer-facing applications.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="section" id="contact">
+    <p class="section-label">Contact</p>
+    <h2 class="section-title">Get In Touch</h2>
+    <div class="contact-grid">
+      <a class="contact-item" href="mailto:chintasameera01@gmail.com">
+        <div class="contact-icon">✉️</div>
+        <div><div class="contact-label">Email</div><div class="contact-value">chintasameera01@gmail.com</div></div>
+      </a>
+      <a class="contact-item" href="https://github.com/sameera13" target="_blank">
+        <div class="contact-icon">⌨️</div>
+        <div><div class="contact-label">GitHub</div><div class="contact-value">github.com/sameera13</div></div>
+      </a>
+      <a class="contact-item" href="tel:+19452576234">
+        <div class="contact-icon">📱</div>
+        <div><div class="contact-label">Phone</div><div class="contact-value">+1 (945) 257-6234</div></div>
+      </a>
+    </div>
+  </section>
+
+</div>
+
+
+<div class="footer-wrap">
+  <footer>
+    <p>© 2025 Sameera Chinta — Multiverse Apprenticeship @ Verizon</p>
+  </footer>
+</div>
 
 </body>
 </html>
